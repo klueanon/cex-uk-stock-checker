@@ -4,8 +4,23 @@ __pycache__/
 *$py.class
 *.so
 .Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 venv/
-ENV/
 
 # Configuration
 config/checker.yaml
@@ -14,6 +29,10 @@ config/stores.yaml
 # Debug files
 debug_*.html
 debug_*.json
+stock_history*.json
+
+# Environment variables
+.env
 
 # IDE
 .vscode/
@@ -21,6 +40,14 @@ debug_*.json
 *.swp
 *.swo
 
-# OS
+# Logs
+*.log
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db 

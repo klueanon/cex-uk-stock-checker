@@ -1,21 +1,22 @@
 # CEX Stock Checker
 
-A Python script to monitor stock availability of products on CEX (uk.webuy.com) with email notifications.
+A Python script to monitor stock availability of products on CEX (uk.webuy.com) and send email notifications when items come in stock.
 
 ## Features
 
 - Monitor multiple products simultaneously
-- Check specific stores or general availability
-- Email notifications when items come in stock
+- Email notifications for stock changes
+- Combined status updates in a single email
+- Stock history tracking
+- Color-coded status indicators
 - Configurable check intervals
-- Detailed logging of stock status
 
 ## Setup
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/klueanon/cex-uk-stock-checker.git
-cd cex-uk-stock-checker
+git clone https://github.com/yourusername/cex-stock-checker.git
+cd cex-stock-checker
 ```
 
 2. Create and activate a virtual environment:
@@ -26,78 +27,70 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. Install dependencies:
 ```bash
-pip install pyyaml requests beautifulsoup4
+pip install -r requirements.txt
 ```
 
-4. Create your configuration:
+4. Create a config file:
 ```bash
-cp config/checker.template.yaml config/checker.yaml
+cp config/checker.yaml.example config/checker.yaml
 ```
 
-5. Edit `config/checker.yaml` with your settings:
-- Add product IDs to monitor (find these in the URL when viewing items)
-- Configure email settings (Gmail recommended)
-- Adjust check interval if desired
-
-### Email Setup (Gmail)
-
-1. Enable 2-Step Verification in your Google Account
-2. Generate an App Password:
-   - Go to Google Account settings
-   - Navigate to Security
-   - Under "2-Step Verification", click on "App passwords"
-   - Select "Mail" and generate a new password
-3. Use this App Password in your `config/checker.yaml`
-
-## Usage
-
-1. Activate the virtual environment:
+5. Set up environment variables:
 ```bash
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+export GMAIL_USERNAME="your.email@gmail.com"
+export GMAIL_APP_PASSWORD="your-app-specific-password"
+export NOTIFICATION_EMAIL="notifications@example.com"
 ```
 
-2. Run the script:
-```bash
-python3 stock_check.py
-```
-
-The script will:
-- Send a startup notification
-- Check stock status at configured intervals
-- Send notifications for any changes
-- Continue running until stopped (Ctrl+C)
-
-## Docker Support
-
-Build the image:
-```bash
-docker build -t cex-stock-checker .
-```
-
-Run the container:
-```bash
-docker run -v $(pwd)/config:/app/config cex-stock-checker
-```
+Note: For Gmail, you need to:
+1. Enable 2-Step Verification
+2. Generate an App Password (Gmail > Account > Security > App Passwords)
 
 ## Configuration
 
-Example `checker.yaml`:
+Edit `config/checker.yaml` to:
+- Add product IDs to monitor
+- Set check interval (in seconds)
+- Configure email settings
+
+Example configuration:
 ```yaml
 items:
-  - PRODUCT_ID_HERE  # Find this in the URL when viewing an item
+  - SHDDSYNDS1821P8BDL  # Synology Disk Station DS1821+ 8bay NAS Enclosure
+  - SHDDWD3TBWD30REDA   # WD Red WD30EFRX 3TB NAS 3.5" SATA
 
 request_delay: 1800  # 30 minutes
 send_email_notification: true
 send_email_enabled: true
 
+store_ids: []  # Empty for general availability
+proceed_prompt_enabled: false
+
 email:
   smtp_server: "smtp.gmail.com"
   smtp_port: 587
-  smtp_username: "your.email@gmail.com"
-  smtp_password: "your-app-password"
-  from_email: "your.email@gmail.com"
-  to_email: "recipient@example.com"
+  smtp_username: "${GMAIL_USERNAME}"
+  smtp_password: "${GMAIL_APP_PASSWORD}"
+  from_email: "${GMAIL_USERNAME}"
+  to_email: "${NOTIFICATION_EMAIL}"
 ```
+
+## Usage
+
+Run the script:
+```bash
+source venv/bin/activate
+python3 stock_check.py
+```
+
+The script will:
+1. Send a startup notification
+2. Check stock status every 30 minutes (configurable)
+3. Send email notifications with:
+   - Stock status for all monitored items
+   - Price information
+   - Stock history
+   - Links to product pages
 
 ## License
 

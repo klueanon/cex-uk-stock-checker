@@ -1,0 +1,18 @@
+items:
+  - SHDDSYNDS1821P8BDL  # Example: Synology Disk Station DS1821+ 8bay NAS Enclosure
+  - SHDDWD3TBWD30REDA   # Example: WD Red WD30EFRX 3TB NAS 3.5" SATA
+
+request_delay: 1800  # 30 minutes in seconds
+send_email_notification: true
+send_email_enabled: true
+
+store_ids: []  # Empty list to check general availability
+proceed_prompt_enabled: false
+
+email:
+  smtp_server: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_username: "${GMAIL_USERNAME}"  # Set in environment: your.email@gmail.com
+  smtp_password: "${GMAIL_APP_PASSWORD}"  # Set in environment: your-app-specific-password
+  from_email: "${GMAIL_USERNAME}"  # Set in environment: your.email@gmail.com
+  to_email: "${NOTIFICATION_EMAIL}"  # Set in environment: notifications@example.com 
