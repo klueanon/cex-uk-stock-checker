@@ -35,7 +35,7 @@ cp config/checker.template.yaml config/checker.yaml
 ```
 
 5. Edit `config/checker.yaml` with your settings:
-- Add product IDs to monitor
+- Add product IDs to monitor (find these in the URL when viewing items)
 - Configure email settings (Gmail recommended)
 - Adjust check interval if desired
 
@@ -84,7 +84,7 @@ docker run -v $(pwd)/config:/app/config cex-stock-checker
 Example `checker.yaml`:
 ```yaml
 items:
-  - PRODUCT_ID_HERE  # Example: SHDDSYNDS1821P8BDL
+  - PRODUCT_ID_HERE  # Find this in the URL when viewing an item
 
 request_delay: 1800  # 30 minutes
 send_email_notification: true

@@ -1,11 +1,11 @@
 items:
-  - PRODUCT_ID_HERE  # Example: SHDDSYNDS1821P8BDL for Synology DS1821+
+  - PRODUCT_ID_HERE  # Example: Find the product ID in the URL when viewing an item
 
 request_delay: 1800  # 30 minutes in seconds
 send_email_notification: true
 send_email_enabled: true
 
-store_ids: [] # Empty list to check general availability, or add store IDs to check specific stores
+store_ids: [] # Empty list to check general availability
 proceed_prompt_enabled: false
 
 email:
