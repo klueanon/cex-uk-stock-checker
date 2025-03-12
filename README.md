@@ -14,8 +14,8 @@ A Python script to monitor stock availability of products on CEX (uk.webuy.com) 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/klueanon/cex-stock-checker.git
-cd cex-stock-checker
+git clone https://github.com/klueanon/cex-uk-stock-checker.git
+cd cex-uk-stock-checker
 ```
 
 2. Create and activate a virtual environment:
