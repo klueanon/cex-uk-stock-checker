@@ -1,0 +1,17 @@
+items:
+  - PRODUCT_ID_HERE  # Example: SHDDSYNDS1821P8BDL for Synology DS1821+
+
+request_delay: 1800  # 30 minutes in seconds
+send_email_notification: true
+send_email_enabled: true
+
+store_ids: [] # Empty list to check general availability, or add store IDs to check specific stores
+proceed_prompt_enabled: false
+
+email:
+  smtp_server: "smtp.gmail.com"  # Gmail SMTP server
+  smtp_port: 587  # Gmail SMTP port
+  smtp_username: "your.email@gmail.com"  # Your Gmail address
+  smtp_password: "your-app-password"  # Your Gmail App Password (16 characters)
+  from_email: "your.email@gmail.com"  # Your Gmail address
+  to_email: "recipient@example.com"  # Where to send notifications 
