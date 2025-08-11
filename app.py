@@ -172,29 +172,66 @@ def api_next_check_time():
     global next_check_time
     return jsonify({'next_check_time': next_check_time})
 
+@app.route('/api/checker_status')
+def api_checker_status():
+    """API endpoint to get detailed checker status"""
+    global stock_checker_thread, stock_checker_running, next_check_time
+    
+    thread_alive = stock_checker_thread.is_alive() if stock_checker_thread else False
+    thread_name = stock_checker_thread.name if stock_checker_thread else None
+    
+    return jsonify({
+        'running': stock_checker_running,
+        'thread_alive': thread_alive,
+        'thread_name': thread_name,
+        'next_check_time': next_check_time,
+        'active_threads': threading.active_count()
+    })
+
 @app.route('/start_checker')
 def start_checker():
     """Start the stock checker in background"""
     global stock_checker_thread, stock_checker_running
     
-    if not stock_checker_running:
-        config = load_config()
-        if not config.get('discord_enabled') or not config.get('discord', {}).get('webhook_url'):
-            flash('Please configure Discord webhook URL in settings before starting', 'error')
-            return redirect(url_for('settings'))
-        
-        stock_checker_running = True
-        stock_checker_thread = threading.Thread(target=run_stock_checker, daemon=True)
-        stock_checker_thread.start()
-        flash('Stock checker started', 'success')
-        
-        # Send start notification
-        items_count = len(config.get('items', []))
-        delay = config.get('request_delay', 1800)
-        startup_message = f"Checking {items_count} item(s) every {delay} seconds via Web UI"
-        send_discord_webhook(config, "start", custom_message=startup_message)
-    else:
+    print(f"[FLASK] Start checker requested. Current status: running={stock_checker_running}")
+    
+    if stock_checker_running:
         flash('Stock checker is already running', 'warning')
+        return redirect(url_for('index'))
+    
+    # Check configuration
+    config = load_config()
+    if not config.get('discord_enabled') or not config.get('discord', {}).get('webhook_url'):
+        flash('Please configure Discord webhook URL in settings before starting', 'error')
+        return redirect(url_for('settings'))
+    
+    if not config.get('items'):
+        flash('Please add at least one product to monitor before starting', 'error')
+        return redirect(url_for('index'))
+    
+    # Clean up any existing thread
+    if stock_checker_thread and stock_checker_thread.is_alive():
+        print(f"[FLASK] Waiting for existing thread to finish...")
+        stock_checker_running = False
+        stock_checker_thread.join(timeout=5)
+    
+    # Start new thread
+    stock_checker_running = True
+    stock_checker_thread = threading.Thread(target=run_stock_checker, daemon=True, name="StockChecker")
+    stock_checker_thread.start()
+    
+    print(f"[FLASK] Stock checker thread started: {stock_checker_thread.name}")
+    flash('Stock checker started', 'success')
+    
+    # Send start notification
+    items_count = len(config.get('items', []))
+    delay = config.get('request_delay', 1800)
+    startup_message = f"Checking {items_count} item(s) every {delay} seconds via Web UI"
+    try:
+        send_discord_webhook(config, "start", custom_message=startup_message)
+        print(f"[FLASK] Start notification sent")
+    except Exception as e:
+        print(f"[FLASK] Failed to send start notification: {e}")
     
     return redirect(url_for('index'))
 
@@ -219,22 +256,32 @@ def run_stock_checker():
     """Run the stock checker in a separate thread"""
     global stock_checker_running, next_check_time
     
-    from stock_check import should_send_notification, send_discord_webhook
+    print("[THREAD] Stock checker thread starting...")
     
     try:
+        # Import functions needed for stock checking
+        from stock_check import should_send_notification, send_discord_webhook
+        print("[THREAD] Successfully imported stock_check functions")
+        
         config = load_config()
         items = config.get('items', [])
         delay = config.get('request_delay', 1800)
         
+        print(f"[THREAD] Loaded config: {len(items)} items, {delay}s delay")
+        
         if not items:
-            print("No items to check")
+            print("[THREAD] No items to check, stopping thread")
+            stock_checker_running = False
             return
         
         check_count = 0
+        print(f"[THREAD] Starting stock checking loop...")
+        
         while stock_checker_running:
-            check_count += 1
-            current_time = time.strftime('%Y-%m-%d %H:%M:%S')
-            print(f"\nStarting web UI check #{check_count} at {current_time}")
+            try:
+                check_count += 1
+                current_time = time.strftime('%Y-%m-%d %H:%M:%S')
+                print(f"\n[THREAD] Starting web UI check #{check_count} at {current_time}")
             
             # Initialize check summary
             check_summary = []
@@ -246,9 +293,10 @@ def run_stock_checker():
                     break
                 
                 try:
+                    print(f"[THREAD] Checking item: {item_id}")
                     in_stock, product_info, stock_history = check_stock(item_id)
                     status = "IN STOCK" if in_stock else "OUT OF STOCK"
-                    print(f"Product {item_id}: {status}")
+                    print(f"[THREAD] Product {item_id}: {status}")
                     
                     if in_stock:
                         in_stock_count += 1
@@ -256,30 +304,51 @@ def run_stock_checker():
                     check_summary.append((product_info, status, current_time, stock_history))
                     time.sleep(2)  # Small delay between checks
                 except Exception as e:
-                    print(f"Error checking {item_id}: {e}")
+                    print(f"[THREAD] Error checking {item_id}: {e}")
+                    import traceback
+                    traceback.print_exc()
             
-            # Calculate next check time
-            next_check_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + delay))
-            
-            # Send Discord notification based on configuration
-            in_stock_items = [item for item in check_summary if item[1] == "IN STOCK"]
-            summary_message = f"Check #{check_count} completed at {current_time}\nNext check: {next_check_time}"
-            
-            if should_send_notification(config, "check_result", in_stock_items):
-                send_discord_webhook(config, "check_result", product_summaries=check_summary, custom_message=summary_message)
-            
-            print(f"Check completed at {current_time}")
-            print(f"Next check in {delay} seconds ({next_check_time})")
-            
-            # Wait for next check
-            for _ in range(delay):
-                if not stock_checker_running:
-                    break
-                time.sleep(1)
+                # Calculate next check time
+                next_check_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + delay))
+                
+                # Send Discord notification based on configuration
+                in_stock_items = [item for item in check_summary if item[1] == "IN STOCK"]
+                summary_message = f"Check #{check_count} completed at {current_time}\nNext check: {next_check_time}"
+                
+                print(f"[THREAD] Sending notification for {len(check_summary)} items")
+                
+                if should_send_notification(config, "check_result", in_stock_items):
+                    send_discord_webhook(config, "check_result", product_summaries=check_summary, custom_message=summary_message)
+                    print(f"[THREAD] Discord notification sent")
+                else:
+                    print(f"[THREAD] Notification skipped based on configuration")
+                
+                print(f"[THREAD] Check completed at {current_time}")
+                print(f"[THREAD] Next check in {delay} seconds ({next_check_time})")
+                
+                # Wait for next check with status updates
+                for i in range(delay):
+                    if not stock_checker_running:
+                        print(f"[THREAD] Stop signal received during sleep")
+                        break
+                    if i % 60 == 0:  # Log every minute
+                        remaining = delay - i
+                        print(f"[THREAD] Next check in {remaining} seconds...")
+                    time.sleep(1)
+                    
+            except Exception as inner_e:
+                print(f"[THREAD] Error in check loop: {inner_e}")
+                import traceback
+                traceback.print_exc()
+                # Continue the loop after error
+                time.sleep(30)  # Wait 30 seconds before retrying
         
     except Exception as e:
-        print(f"Stock checker error: {e}")
+        print(f"[THREAD] Fatal stock checker error: {e}")
+        import traceback
+        traceback.print_exc()
     finally:
+        print(f"[THREAD] Stock checker thread ending...")
         stock_checker_running = False
         next_check_time = None
 
