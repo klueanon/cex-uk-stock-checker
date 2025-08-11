@@ -282,32 +282,32 @@ def run_stock_checker():
                 check_count += 1
                 current_time = time.strftime('%Y-%m-%d %H:%M:%S')
                 print(f"\n[THREAD] Starting web UI check #{check_count} at {current_time}")
-            
-            # Initialize check summary
-            check_summary = []
-            in_stock_count = 0
-            
-            # Check each item
-            for item_id in items:
-                if not stock_checker_running:
-                    break
                 
-                try:
-                    print(f"[THREAD] Checking item: {item_id}")
-                    in_stock, product_info, stock_history = check_stock(item_id)
-                    status = "IN STOCK" if in_stock else "OUT OF STOCK"
-                    print(f"[THREAD] Product {item_id}: {status}")
+                # Initialize check summary
+                check_summary = []
+                in_stock_count = 0
+                
+                # Check each item
+                for item_id in items:
+                    if not stock_checker_running:
+                        break
                     
-                    if in_stock:
-                        in_stock_count += 1
-                    
-                    check_summary.append((product_info, status, current_time, stock_history))
-                    time.sleep(2)  # Small delay between checks
-                except Exception as e:
-                    print(f"[THREAD] Error checking {item_id}: {e}")
-                    import traceback
-                    traceback.print_exc()
-            
+                    try:
+                        print(f"[THREAD] Checking item: {item_id}")
+                        in_stock, product_info, stock_history = check_stock(item_id)
+                        status = "IN STOCK" if in_stock else "OUT OF STOCK"
+                        print(f"[THREAD] Product {item_id}: {status}")
+                        
+                        if in_stock:
+                            in_stock_count += 1
+                        
+                        check_summary.append((product_info, status, current_time, stock_history))
+                        time.sleep(2)  # Small delay between checks
+                    except Exception as e:
+                        print(f"[THREAD] Error checking {item_id}: {e}")
+                        import traceback
+                        traceback.print_exc()
+                
                 # Calculate next check time
                 next_check_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time() + delay))
                 
