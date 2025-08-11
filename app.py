@@ -292,4 +292,6 @@ if __name__ == '__main__':
         default_config = load_config()
         save_config(default_config)
     
-    app.run(host='0.0.0.0', port=5001, debug=False)
+    # Use PORT environment variable or default to 5000 for Docker
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
