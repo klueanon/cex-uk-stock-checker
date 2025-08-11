@@ -2,29 +2,53 @@ version: '3.8'
 
 services:
   cex-stock-checker:
-    build: .
+    build:
+      context: https://github.com/klueanon/cex-uk-stock-checker.git
+      dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Web UI port
     environment:
+      # Flask configuration
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
       # Optional: Custom config file path
       - CUSTOM_CONFIG=/app/config/checker.yaml
     volumes:
-      # Mount config directory for persistence
+      # Configuration persistence
       - ./config:/app/config
-      # Mount data directory for stock history and debug files
+      # Data persistence (stock history, webhook logs, debug files)
       - ./data:/app/data
-      # Optional: Mount a custom config file
-      # - ./custom-checker.yaml:/app/config/checker.yaml
+      # Optional: Mount custom config
+      # - ./my-custom-checker.yaml:/app/config/checker.yaml
+      # Note: Config and data directories will be created automatically
+      # if they don't exist on the host
     restart: unless-stopped
     container_name: cex-stock-checker
     
-    # Health check to ensure the web app is running
+    # Health check for the web application
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s  # Give more time for startup
+    
+    # Resource limits (optional)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   default:

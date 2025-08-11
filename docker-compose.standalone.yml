@@ -1,0 +1,71 @@
+# CEX Stock Checker - Standalone Docker Compose
+# This file can be used on any server without cloning the repository
+# Just download this file and run: docker-compose -f docker-compose.standalone.yml up -d
+
+version: '3.8'
+
+services:
+  cex-stock-checker:
+    # Build directly from GitHub repository
+    build:
+      context: https://github.com/klueanon/cex-uk-stock-checker.git
+      dockerfile: Dockerfile
+    
+    ports:
+      - "5000:5000"  # Web UI accessible at http://your-server:5000
+    
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+      - CUSTOM_CONFIG=/app/config/checker.yaml
+    
+    volumes:
+      # These directories will be created automatically on the host
+      - ./config:/app/config:rw          # Configuration persistence
+      - ./data:/app/data:rw              # Stock history, webhook logs, debug files
+      - /etc/localtime:/etc/localtime:ro # Sync container time with host
+    
+    restart: unless-stopped
+    container_name: cex-stock-checker
+    
+    # Health monitoring
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Resource limits (adjust based on your server)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Security settings
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  default:
+    name: cex-stock-checker-network
+    driver: bridge
+
+# Instructions for use:
+# 1. Save this file as 'docker-compose.yml' on your server
+# 2. Run: docker-compose up -d
+# 3. Access web UI at: http://your-server:5000
+# 4. Configure Discord webhook in Settings
+# 5. Add CEX product IDs to monitor
+# 6. Enjoy automated stock notifications!

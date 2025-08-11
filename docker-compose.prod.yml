@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  cex-stock-checker:
+    build:
+      context: https://github.com/klueanon/cex-uk-stock-checker.git
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+      - CUSTOM_CONFIG=/app/config/checker.yaml
+    volumes:
+      - ./config:/app/config:rw
+      - ./data:/app/data:rw
+      - /etc/localtime:/etc/localtime:ro  # Sync container time with host
+    restart: unless-stopped
+    container_name: cex-stock-checker
+    
+    # Enhanced health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/webhook_logs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Resource limits for production
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    
+    # Structured logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+    
+    # Security settings
+    security_opt:
+      - no-new-privileges:true
+    read_only: false  # Needs write access for logs and data
+    
+    # User permissions (run as non-root)
+    user: "1000:1000"
+
+networks:
+  default:
+    name: cex-stock-checker-network
+    driver: bridge
