@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - CEX Stock Checker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                <span class="status-indicator {{ 'status-running' if checker_running else 'status-stopped' }}"></span>
+                <small class="text-muted fs-6">
+                    {{ 'Running' if checker_running else 'Stopped' }}
+                </small>
+            </h2>
+            <div>
+                {% if checker_running %}
+                    <a href="{{ url_for('stop_checker') }}" class="btn btn-danger">
+                        <i class="fas fa-stop me-1"></i>Stop Checker
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('start_checker') }}" class="btn btn-success">
+                        <i class="fas fa-play me-1"></i>Start Checker
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-plus me-2"></i>Add New Product</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_item') }}">
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">CEX Product ID</label>
+                        <input type="text" class="form-control" id="product_id" name="product_id" 
+                               placeholder="e.g., SHDDSYNDS1821P8BDL" required>
+                        <div class="form-text">Enter the CEX product ID from the product page URL</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i>Add Product
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle me-2"></i>Status Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <h3 class="text-primary">{{ products|length }}</h3>
+                        <small class="text-muted">Total Products</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="stock-in">{{ products|selectattr('in_stock')|list|length }}</h3>
+                        <small class="text-muted">In Stock</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="stock-out">{{ (products|length) - (products|selectattr('in_stock')|list|length) }}</h3>
+                        <small class="text-muted">Out of Stock</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <small class="text-muted">
+                        Check interval: {{ config.request_delay // 60 }} minutes<br>
+                        {% if checker_running and next_check_time %}
+                            Next check: <span id="next-check-countdown">{{ next_check_time }}</span>
+                        {% elif checker_running %}
+                            Next check: <span id="next-check-countdown">Calculating...</span>
+                        {% else %}
+                            Status: Stopped
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h4><i class="fas fa-list me-2"></i>Monitored Products</h4>
+        
+        {% if products %}
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card product-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="card-title">{{ product.name }}</h6>
+                                <a href="{{ url_for('remove_item', product_id=product.id) }}" 
+                                   class="btn btn-sm btn-outline-danger" 
+                                   onclick="return confirm('Remove this product from monitoring?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                            
+                            <p class="card-text">
+                                <strong>ID:</strong> {{ product.id }}<br>
+                                <strong>Status:</strong> 
+                                <span class="{{ 'stock-in' if product.in_stock else 'stock-out' }}">
+                                    <i class="fas {{ 'fa-check-circle' if product.in_stock else 'fa-times-circle' }} me-1"></i>
+                                    {{ 'IN STOCK' if product.in_stock else 'OUT OF STOCK' }}
+                                </span>
+                            </p>
+                            
+                            {% if product.stock_history %}
+                            <small class="text-muted">
+                                <strong>Last in stock:</strong> 
+                                {{ product.stock_history.last_in_stock or 'Never' }}<br>
+                                <strong>Times in stock:</strong> 
+                                {{ product.stock_history.times_in_stock or 0 }}
+                            </small>
+                            {% endif %}
+                            
+                            <div class="mt-2">
+                                <a href="https://uk.webuy.com/product-detail?id={{ product.id }}" 
+                                   target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-external-link-alt me-1"></i>View on CEX
+                                </a>
+                            </div>
+                            
+                            {% if product.error %}
+                            <div class="alert alert-warning mt-2 mb-0 p-2">
+                                <small>Error: {{ product.error }}</small>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                No products are currently being monitored. Add your first product using the form above.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if config.discord_enabled and config.discord.webhook_url %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fab fa-discord me-2"></i>Latest Discord Notification Preview</h5>
+            </div>
+            <div class="card-body">
+                <div id="webhook-preview" class="text-muted">
+                    <p>Loading latest webhook notification...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-refresh the page every 5 minutes when checker is running
+{% if checker_running %}
+setTimeout(function() {
+    window.location.reload();
+}, 300000); // 5 minutes
+{% endif %}
+
+// Add product ID validation
+document.getElementById('product_id').addEventListener('input', function(e) {
+    const value = e.target.value.toUpperCase();
+    e.target.value = value;
+});
+
+// Update next check countdown
+{% if checker_running %}
+function updateCountdown() {
+    fetch('/api/next_check_time')
+        .then(response => response.json())
+        .then(data => {
+            const countdownElement = document.getElementById('next-check-countdown');
+            if (data.next_check_time && countdownElement) {
+                const nextTime = new Date(data.next_check_time).getTime();
+                const now = new Date().getTime();
+                const timeLeft = nextTime - now;
+                
+                if (timeLeft > 0) {
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    countdownElement.textContent = `${minutes}m ${seconds}s`;
+                } else {
+                    countdownElement.textContent = 'Checking now...';
+                }
+            }
+        })
+        .catch(error => console.log('Error fetching countdown:', error));
+}
+
+// Update countdown every second
+setInterval(updateCountdown, 1000);
+updateCountdown(); // Initial call
+{% endif %}
+
+// Load webhook preview
+{% if config.discord_enabled and config.discord.webhook_url %}
+function loadWebhookPreview() {
+    fetch('/api/webhook_logs')
+        .then(response => response.json())
+        .then(logs => {
+            const previewElement = document.getElementById('webhook-preview');
+            if (logs.length > 0) {
+                const latestLog = logs[0];
+                let previewHtml = `
+                    <div class="border-start border-primary ps-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="mb-1">`;
+                
+                if (latestLog.message_type === 'start') {
+                    previewHtml += '<span class="badge bg-success me-2">🟢</span>Checker Started';
+                } else if (latestLog.message_type === 'stop') {
+                    previewHtml += '<span class="badge bg-danger me-2">🔴</span>Checker Stopped';
+                } else {
+                    previewHtml += '<span class="badge bg-info me-2">📊</span>Stock Check Results';
+                }
+                
+                previewHtml += `</h6>
+                            <small class="text-muted">${latestLog.timestamp}</small>
+                        </div>`;
+                
+                if (latestLog.payload && latestLog.payload.embeds && latestLog.payload.embeds[0]) {
+                    const embed = latestLog.payload.embeds[0];
+                    
+                    // Display embed title with color indicator
+                    const colorHex = embed.color ? `#${embed.color.toString(16).padStart(6, '0')}` : '#7289da';
+                    previewHtml += `<p class="mb-1"><span style="display: inline-block; width: 12px; height: 12px; background-color: ${colorHex}; border-radius: 2px; margin-right: 8px;"></span><strong>${embed.title}</strong></p>`;
+                    
+                    // Display description if available
+                    if (embed.description) {
+                        const shortDesc = embed.description.length > 100 ? 
+                            embed.description.substring(0, 100) + '...' : 
+                            embed.description;
+                        previewHtml += `<p class="text-muted small mb-2">${shortDesc}</p>`;
+                    }
+                    
+                    // Show field summary
+                    if (embed.fields && embed.fields.length > 0) {
+                        const inStockFields = embed.fields.filter(field => field.name.includes('✅'));
+                        const totalFields = embed.fields.filter(field => !field.name.includes('📝'));
+                        
+                        previewHtml += '<div class="row"><div class="col-12"><small class="text-muted">';
+                        if (totalFields.length > 0) {
+                            previewHtml += `📦 ${inStockFields.length}/${totalFields.length} in stock • `;
+                        }
+                        previewHtml += `${embed.fields.length} field(s)</small></div></div>`;
+                    }
+                    
+                    // Show thumbnail indicator if present
+                    if (embed.thumbnail || embed.image) {
+                        previewHtml += '<div class="mt-1"><small class="text-success">🖼️ Enhanced with images</small></div>';
+                    }
+                }
+                
+                let statusBadge;
+                if (latestLog.status === 'success') {
+                    statusBadge = '<span class="badge bg-success">✅ Delivered</span>';
+                } else if (latestLog.status === 'failed') {
+                    statusBadge = '<span class="badge bg-warning">⚠️ Failed</span>';
+                } else {
+                    statusBadge = '<span class="badge bg-danger">❌ Error</span>';
+                }
+                
+                previewHtml += `<div class="mt-2">${statusBadge}</div></div>`;
+                previewElement.innerHTML = previewHtml;
+            } else {
+                previewElement.innerHTML = '<p class="text-muted">No webhook notifications sent yet.</p>';
+            }
+        })
+        .catch(error => {
+            document.getElementById('webhook-preview').innerHTML = '<p class="text-danger">Error loading webhook preview</p>';
+        });
+}
+
+// Load preview on page load and refresh every 30 seconds
+loadWebhookPreview();
+setInterval(loadWebhookPreview, 30000);
+{% endif %}
+</script>
+{% endblock %}

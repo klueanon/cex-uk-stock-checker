@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - CEX Stock Checker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2><i class="fas fa-cog me-2"></i>Settings</h2>
+        <p class="text-muted">Configure your stock checker preferences and Discord notifications.</p>
+    </div>
+</div>
+
+<form method="POST" action="{{ url_for('update_settings') }}">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-clock me-2"></i>Checking Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="request_delay" class="form-label">Check Interval (seconds)</label>
+                        <input type="number" class="form-control" id="request_delay" name="request_delay" 
+                               value="{{ config.request_delay }}" min="60" required>
+                        <div class="form-text">How often to check for stock updates (minimum 60 seconds)</div>
+                    </div>
+                    
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="discord_enabled" name="discord_enabled"
+                                   {{ 'checked' if config.discord_enabled }}>
+                            <label class="form-check-label" for="discord_enabled">
+                                Enable Discord Notifications
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notification_mode" class="form-label">Notification Mode</label>
+                        <select class="form-select" id="notification_mode" name="notification_mode">
+                            <option value="all_checks" {{ 'selected' if config.notification_mode == 'all_checks' else '' }}>
+                                Send notification for every check
+                            </option>
+                            <option value="stock_changes" {{ 'selected' if config.notification_mode == 'stock_changes' else '' }}>
+                                Only send when items are in stock
+                            </option>
+                        </select>
+                        <div class="form-text">Choose when to send Discord notifications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fab fa-discord me-2"></i>Discord Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="discord_webhook_url" class="form-label">Discord Webhook URL</label>
+                        <input type="url" class="form-control" id="discord_webhook_url" name="discord_webhook_url" 
+                               value="{{ config.discord.webhook_url or '' }}" placeholder="https://discord.com/api/webhooks/...">
+                        <div class="form-text">Enter your Discord webhook URL to receive notifications</div>
+                    </div>
+                    <div class="alert alert-info">
+                        <small>
+                            <strong>How to get Discord Webhook URL:</strong><br>
+                            1. Go to your Discord server settings<br>
+                            2. Go to Integrations → Webhooks<br>
+                            3. Create a new webhook or copy existing URL
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-bell me-2"></i>Recent Webhook Logs</h5>
+                </div>
+                <div class="card-body">
+                    {% if webhook_logs %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Preview</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for log in webhook_logs %}
+                                    <tr>
+                                        <td>{{ log.timestamp }}</td>
+                                        <td>
+                                            {% if log.message_type == 'start' %}
+                                                <span class="badge bg-success">Start</span>
+                                            {% elif log.message_type == 'stop' %}
+                                                <span class="badge bg-danger">Stop</span>
+                                            {% else %}
+                                                <span class="badge bg-info">Check</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if log.status == 'success' %}
+                                                <span class="badge bg-success">✓ Success</span>
+                                            {% elif log.status == 'failed' %}
+                                                <span class="badge bg-warning">⚠ Failed</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">✗ Error</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if log.payload and log.payload.embeds %}
+                                                <small class="text-muted">{{ log.payload.embeds[0].title|truncate(50) }}</small>
+                                            {% elif log.error %}
+                                                <small class="text-danger">{{ log.error|truncate(50) }}</small>
+                                            {% else %}
+                                                <small class="text-muted">-</small>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No webhook logs yet. Start the checker to see notification history.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i>Save Settings
+            </button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+</form>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fab fa-discord me-2"></i>Discord Setup Instructions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>To set up Discord webhook notifications:</p>
+                        <ol>
+                            <li>Go to your Discord server</li>
+                            <li>Go to Server Settings > Integrations</li>
+                            <li>Click "Webhooks" > "Create Webhook"</li>
+                            <li>Choose a channel and copy the webhook URL</li>
+                            <li>Enable Discord notifications above</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="alert alert-info">
+                            <h6><strong>Notification Types:</strong></h6>
+                            <ul class="mb-0">
+                                <li><strong>Start/Stop:</strong> When checker starts or stops</li>
+                                <li><strong>Stock Updates:</strong> Results of stock checks with product details</li>
+                                <li><strong>Rich Embeds:</strong> Formatted messages with links to CEX pages</li>
+                            </ul>
+                        </div>
+                        <div class="alert alert-warning">
+                            <small>
+                                <strong>Note:</strong> Choose "Send notification for every check" to get updates on all products, or "Only send when items are in stock" for fewer notifications.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Convert seconds to minutes for display
+document.getElementById('request_delay').addEventListener('input', function(e) {
+    const seconds = parseInt(e.target.value);
+    const minutes = Math.round(seconds / 60);
+    const nextSibling = e.target.nextElementSibling;
+    if (nextSibling && nextSibling.classList.contains('form-text')) {
+        nextSibling.textContent = `How often to check for stock updates (${minutes} minutes)`;
+    }
+});
+
+// Trigger initial calculation
+document.getElementById('request_delay').dispatchEvent(new Event('input'));
+</script>
+{% endblock %}

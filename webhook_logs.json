@@ -1,0 +1,584 @@
+[
+  {
+    "timestamp": "2025-08-11 21:35:58",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:35:57.894586",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 8421504,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udeab Stock Check Complete - 0/1 No Items in Stock",
+          "description": "\ud83d\udcc5 Check #1 completed at 2025-08-11 21:35:54\nNext check: 2025-08-11 22:05:57",
+          "fields": [
+            {
+              "name": "\u274c Seagate EXOS X16 ST16000NM001G 16TB HDD ...",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3190 \u2022 \ud83d\udcb0 Buy: \u00a3104 \u2022 \ud83d\udd04 Exchange: \u00a3127\n\ud83c\udff7\ufe0f `SHDDSEAST16000NM001G`\n\ud83d\udd70\ufe0f Last seen: None\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SHDDSEAST16000NM001G)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:35:54",
+    "message_type": "start",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:35:54.465943",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 65280,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udfe2 CEX Stock Checker Started",
+          "description": "\u2728 **Stock monitoring is now active!**\n\nChecking 1 item(s) every 1800 seconds via Web UI"
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:34:26",
+    "message_type": "stop",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:34:25.418191",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 16711680,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udd34 CEX Stock Checker Stopped",
+          "description": "\u23f9\ufe0f **Stock monitoring has been paused**\n\nStock monitoring paused by user\nTotal checks completed: 47\nItems found in stock: 8"
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:34:23",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:34:22.789624",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 8421504,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udeab Stock Check Complete - 0/2 No Items in Stock",
+          "description": "\ud83d\udcc5 No items currently available - will keep monitoring",
+          "fields": [
+            {
+              "name": "\u274c Sony PlayStation 5 Console",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3479.99 \u2022 \ud83d\udcb0 Buy: \u00a3320.0 \u2022 \ud83d\udd04 Exchange: \u00a3380.0\n\ud83c\udff7\ufe0f `SCOSONPS5C825GB`\n\ud83d\udd70\ufe0f Last seen: 2025-01-10 14:22:15\n\ud83d\udcca Times available: 12\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOSONPS5C825GB)",
+              "inline": true
+            },
+            {
+              "name": "\u274c iPhone 14 Pro 128GB Space Black Unlocked",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3899.0 \u2022 \ud83d\udcb0 Buy: \u00a3650.0 \u2022 \ud83d\udd04 Exchange: \u00a3720.0\n\ud83c\udff7\ufe0f `SPHAPP14P128GBSBL`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 5\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SPHAPP14P128GBSBL)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:34:20",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:34:20.401987",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 65280,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83c\udf89 Stock Check Complete - 2/2 All Items in Stock!",
+          "description": "\ud83d\udcc5 \ud83c\udf89 Great news! All monitored items are now available!",
+          "fields": [
+            {
+              "name": "\u2705 Sony PlayStation 5 Console",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a3479.99 \u2022 \ud83d\udcb0 Buy: \u00a3320.0 \u2022 \ud83d\udd04 Exchange: \u00a3380.0\n\ud83c\udff7\ufe0f `SCOSONPS5C825GB`\n\ud83d\udd70\ufe0f Last seen: 2025-01-10 14:22:15\n\ud83d\udcca Times available: 12\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOSONPS5C825GB)",
+              "inline": true
+            },
+            {
+              "name": "\u2705 iPhone 14 Pro 128GB Space Black Unlocked",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a3899.0 \u2022 \ud83d\udcb0 Buy: \u00a3650.0 \u2022 \ud83d\udd04 Exchange: \u00a3720.0\n\ud83c\udff7\ufe0f `SPHAPP14P128GBSBL`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 5\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SPHAPP14P128GBSBL)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:34:18",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:34:18.025443",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 16753920,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udfe1 Stock Check Complete - 2/4 Some Items Available",
+          "description": "\ud83d\udcc5 Stock check completed at 2025-01-11 20:30:00\nNext check: 2025-01-11 21:00:00",
+          "fields": [
+            {
+              "name": "\u2705 MacBook Air M2 13\" 256GB Space Grey",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a31299.0 \u2022 \ud83d\udcb0 Buy: \u00a3890.0 \u2022 \ud83d\udd04 Exchange: \u00a31050.0\n\ud83c\udff7\ufe0f `SCOAPPMBA13256GBSG`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 3\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOAPPMBA13256GBSG)",
+              "inline": true
+            },
+            {
+              "name": "\u2705 iPhone 14 Pro 128GB Space Black Unlocked",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a3899.0 \u2022 \ud83d\udcb0 Buy: \u00a3650.0 \u2022 \ud83d\udd04 Exchange: \u00a3720.0\n\ud83c\udff7\ufe0f `SPHAPP14P128GBSBL`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 5\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SPHAPP14P128GBSBL)",
+              "inline": true
+            },
+            {
+              "name": "\u274c Nintendo Switch OLED Console White",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3309.99 \u2022 \ud83d\udcb0 Buy: \u00a3185.0 \u2022 \ud83d\udd04 Exchange: \u00a3220.0\n\ud83c\udff7\ufe0f `SCONINSWOLEDW`\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCONINSWOLEDW)",
+              "inline": true
+            },
+            {
+              "name": "\u274c Sony PlayStation 5 Console",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3479.99 \u2022 \ud83d\udcb0 Buy: \u00a3320.0 \u2022 \ud83d\udd04 Exchange: \u00a3380.0\n\ud83c\udff7\ufe0f `SCOSONPS5C825GB`\n\ud83d\udd70\ufe0f Last seen: 2025-01-10 14:22:15\n\ud83d\udcca Times available: 12\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOSONPS5C825GB)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:34:16",
+    "message_type": "start",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:34:15.512182",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 65280,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udfe2 CEX Stock Checker Started",
+          "description": "\u2728 **Stock monitoring is now active!**\n\nMonitoring 4 premium tech products\n\u2022 iPhone 14 Pro\n\u2022 PlayStation 5\n\u2022 MacBook Air M2\n\u2022 Nintendo Switch OLED"
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:33:07",
+    "message_type": "stop",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:33:06.796006",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 16711680,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udd34 CEX Stock Checker Stopped",
+          "description": "\u23f9\ufe0f **Stock monitoring has been paused**\n\nStock checker stopped via Web UI",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop&crop=center"
+          }
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:32:13",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:32:13.117204",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 8421504,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udeab Stock Check Complete - 0/1 No Items in Stock",
+          "description": "\ud83d\udcc5 Check #1 completed at 2025-08-11 21:32:09\nNext check: 2025-08-11 21:37:13",
+          "fields": [
+            {
+              "name": "\u274c Seagate EXOS X16 ST16000NM001G 16TB HDD ...",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3190 \u2022 \ud83d\udcb0 Buy: \u00a3104 \u2022 \ud83d\udd04 Exchange: \u00a3127\n\ud83c\udff7\ufe0f `SHDDSEAST16000NM001G`\n\ud83d\udd70\ufe0f Last seen: None\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SHDDSEAST16000NM001G)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:32:09",
+    "message_type": "start",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:32:09.042847",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 65280,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udfe2 CEX Stock Checker Started",
+          "description": "\u2728 **Stock monitoring is now active!**\n\nChecking 1 item(s) every 300 seconds via Web UI",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop&crop=center"
+          }
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:31:12",
+    "message_type": "stop",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:31:12.181879",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 16711680,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udd34 CEX Stock Checker Stopped",
+          "description": "\u23f9\ufe0f **Stock monitoring has been paused**\n\nStock monitoring paused by user\nTotal checks completed: 47\nItems found in stock: 8",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop&crop=center"
+          }
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:31:10",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:31:09.763833",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 8421504,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udeab Stock Check Complete - 0/2 No Items in Stock",
+          "description": "\ud83d\udcc5 No items currently available - will keep monitoring",
+          "fields": [
+            {
+              "name": "\u274c Sony PlayStation 5 Console",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3479.99 \u2022 \ud83d\udcb0 Buy: \u00a3320.0 \u2022 \ud83d\udd04 Exchange: \u00a3380.0\n\ud83c\udff7\ufe0f `SCOSONPS5C825GB`\n\ud83d\udd70\ufe0f Last seen: 2025-01-10 14:22:15\n\ud83d\udcca Times available: 12\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOSONPS5C825GB)",
+              "inline": true
+            },
+            {
+              "name": "\u274c iPhone 14 Pro 128GB Space Black Unlocked",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3899.0 \u2022 \ud83d\udcb0 Buy: \u00a3650.0 \u2022 \ud83d\udd04 Exchange: \u00a3720.0\n\ud83c\udff7\ufe0f `SPHAPP14P128GBSBL`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 5\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SPHAPP14P128GBSBL)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:31:07",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:31:07.345010",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 65280,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83c\udf89 Stock Check Complete - 2/2 All Items in Stock!",
+          "description": "\ud83d\udcc5 \ud83c\udf89 Great news! All monitored items are now available!",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=250&fit=crop&crop=center"
+          },
+          "fields": [
+            {
+              "name": "\u2705 Sony PlayStation 5 Console",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a3479.99 \u2022 \ud83d\udcb0 Buy: \u00a3320.0 \u2022 \ud83d\udd04 Exchange: \u00a3380.0\n\ud83c\udff7\ufe0f `SCOSONPS5C825GB`\n\ud83d\udd70\ufe0f Last seen: 2025-01-10 14:22:15\n\ud83d\udcca Times available: 12\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOSONPS5C825GB)",
+              "inline": true
+            },
+            {
+              "name": "\u2705 iPhone 14 Pro 128GB Space Black Unlocked",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a3899.0 \u2022 \ud83d\udcb0 Buy: \u00a3650.0 \u2022 \ud83d\udd04 Exchange: \u00a3720.0\n\ud83c\udff7\ufe0f `SPHAPP14P128GBSBL`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 5\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SPHAPP14P128GBSBL)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:31:05",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:31:04.905939",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 16753920,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udfe1 Stock Check Complete - 2/4 Some Items Available",
+          "description": "\ud83d\udcc5 Stock check completed at 2025-01-11 20:30:00\nNext check: 2025-01-11 21:00:00",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=250&fit=crop&crop=center"
+          },
+          "fields": [
+            {
+              "name": "\u2705 MacBook Air M2 13\" 256GB Space Grey",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a31299.0 \u2022 \ud83d\udcb0 Buy: \u00a3890.0 \u2022 \ud83d\udd04 Exchange: \u00a31050.0\n\ud83c\udff7\ufe0f `SCOAPPMBA13256GBSG`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 3\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOAPPMBA13256GBSG)",
+              "inline": true
+            },
+            {
+              "name": "\u2705 iPhone 14 Pro 128GB Space Black Unlocked",
+              "value": "\u2705 **\ud83d\udd25 AVAILABLE NOW**\n\ud83c\udff7\ufe0f Sell: \u00a3899.0 \u2022 \ud83d\udcb0 Buy: \u00a3650.0 \u2022 \ud83d\udd04 Exchange: \u00a3720.0\n\ud83c\udff7\ufe0f `SPHAPP14P128GBSBL`\n\ud83d\udd70\ufe0f Last seen: 2025-01-11 20:30:00\n\ud83d\udcca Times available: 5\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SPHAPP14P128GBSBL)",
+              "inline": true
+            },
+            {
+              "name": "\u274c Nintendo Switch OLED Console White",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3309.99 \u2022 \ud83d\udcb0 Buy: \u00a3185.0 \u2022 \ud83d\udd04 Exchange: \u00a3220.0\n\ud83c\udff7\ufe0f `SCONINSWOLEDW`\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCONINSWOLEDW)",
+              "inline": true
+            },
+            {
+              "name": "\u274c Sony PlayStation 5 Console",
+              "value": "\u274c *Out of Stock*\n\ud83c\udff7\ufe0f Sell: \u00a3479.99 \u2022 \ud83d\udcb0 Buy: \u00a3320.0 \u2022 \ud83d\udd04 Exchange: \u00a3380.0\n\ud83c\udff7\ufe0f `SCOSONPS5C825GB`\n\ud83d\udd70\ufe0f Last seen: 2025-01-10 14:22:15\n\ud83d\udcca Times available: 12\n\n[\ud83d\udd17 **View on CEX**](https://uk.webuy.com/product-detail?id=SCOSONPS5C825GB)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:31:02",
+    "message_type": "start",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:31:02.132689",
+          "footer": {
+            "text": "CEX Stock Checker - Powered by uk.webuy.com",
+            "icon_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "color": 65280,
+          "thumbnail": {
+            "url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png"
+          },
+          "title": "\ud83d\udfe2 CEX Stock Checker Started",
+          "description": "\u2728 **Stock monitoring is now active!**\n\nMonitoring 4 premium tech products\n\u2022 iPhone 14 Pro\n\u2022 PlayStation 5\n\u2022 MacBook Air M2\n\u2022 Nintendo Switch OLED",
+          "image": {
+            "url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop&crop=center"
+          }
+        }
+      ],
+      "username": "CEX Stock Monitor",
+      "avatar_url": "https://uk.webuy.com/site-media/images/misc/webuy-logo.png",
+      "content": null
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:27:23",
+    "message_type": "check_result",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:27:22.702617",
+          "footer": {
+            "text": "CEX Stock Checker",
+            "icon_url": "https://uk.webuy.com/favicon.ico"
+          },
+          "title": "\ud83d\udcca Stock Check Results - 0/1 In Stock",
+          "color": 16761095,
+          "description": "Check #1 completed at 2025-08-11 21:27:18\nNext check: 2025-08-11 21:32:22",
+          "fields": [
+            {
+              "name": "Seagate EXOS X16 ST16000NM001G 16TB HDD 3.5\" SATA III",
+              "value": "\u274c **OUT OF STOCK**\nID: `SHDDSEAST16000NM001G`\nLast in stock: None\nTimes in stock: 0\n[View on CEX](https://uk.webuy.com/product-detail?id=SHDDSEAST16000NM001G)",
+              "inline": true
+            }
+          ]
+        }
+      ],
+      "username": "CEX Stock Checker",
+      "avatar_url": "https://uk.webuy.com/favicon.ico"
+    },
+    "response": null
+  },
+  {
+    "timestamp": "2025-08-11 21:27:18",
+    "message_type": "start",
+    "status": "success",
+    "status_code": 204,
+    "payload": {
+      "embeds": [
+        {
+          "timestamp": "2025-08-11T20:27:18.082646",
+          "footer": {
+            "text": "CEX Stock Checker",
+            "icon_url": "https://uk.webuy.com/favicon.ico"
+          },
+          "title": "\ud83d\udfe2 Stock Checker Started",
+          "color": 2664261,
+          "description": "Checking 1 item(s) every 300 seconds via Web UI"
+        }
+      ],
+      "username": "CEX Stock Checker",
+      "avatar_url": "https://uk.webuy.com/favicon.ico"
+    },
+    "response": null
+  }
+]

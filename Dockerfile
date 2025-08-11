@@ -7,10 +7,27 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application files
+COPY app.py .
 COPY stock_check.py .
-COPY config/checker.template.yaml config/checker.template.yaml
+COPY load_stores.py .
+COPY templates/ templates/
+COPY config/ config/
 
-# Create volume mount point for config
-VOLUME ["/app/config"]
+# Create directories for data persistence
+RUN mkdir -p /app/data
 
-CMD ["python3", "stock_check.py"]
+# Expose port for Flask web application
+EXPOSE 5000
+
+# Set environment variables for Flask
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
+
+# Create volume mount points
+VOLUME ["/app/config", "/app/data"]
+
+# Add curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Run the Flask web application with Gunicorn for production
+CMD ["python3", "run.py"]
